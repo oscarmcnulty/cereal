@@ -6,7 +6,6 @@ __pycache__
 .*.swo
 *.os
 *.o
-*.so
 *.a
 build
 bin
