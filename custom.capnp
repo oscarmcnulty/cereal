@@ -1,6 +1,10 @@
 using Cxx = import "./include/c++.capnp";
 $Cxx.namespace("cereal");
 
+using Java = import "./include/java.capnp";
+$Java.package("ai.flow.definitions");
+$Java.outerClassname("CarDefinitions");
+
 @0xb526ba661d550a59;
 
 # custom.capnp: a home for empty structs reserved for custom forks

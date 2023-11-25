@@ -8,6 +8,22 @@
 #include "cereal/services.h"
 #include "cereal/messaging/impl_zmq.h"
 
+std::map<std::string, std::string> ZMQ_PROTOCOLS = {
+  { "TCP", "tcp://" },
+  { "INTER_PROCESS", "ipc://@" }, // use abstract sockets.
+  { "SHARED_MEMORY", "inproc://" }
+};
+
+static std::string get_zmq_protocol() {
+  std::string default_zmq_protocol = "tcp://";
+  char *force_protocol = std::getenv("ZMQ_MESSAGING_PROTOCOL");
+  if (force_protocol != NULL){
+    auto it = ZMQ_PROTOCOLS.find(std::string(force_protocol));
+    default_zmq_protocol = it -> second;
+  }
+  return default_zmq_protocol;
+}
+
 static int get_port(std::string endpoint) {
   return services.at(endpoint).port;
 }
@@ -59,7 +75,7 @@ int ZMQSubSocket::connect(Context *context, std::string endpoint, std::string ad
   int reconnect_ivl = 500;
   zmq_setsockopt(sock, ZMQ_RECONNECT_IVL_MAX, &reconnect_ivl, sizeof(reconnect_ivl));
 
-  full_endpoint = "tcp://" + address + ":";
+  full_endpoint = get_zmq_protocol() + address + ":";
   if (check_endpoint){
     full_endpoint += std::to_string(get_port(endpoint));
   } else {
@@ -102,7 +118,15 @@ int ZMQPubSocket::connect(Context *context, std::string endpoint, bool check_end
     return -1;
   }
 
-  full_endpoint = "tcp://*:";
+  std::string addr = "127.0.0.1";
+  char *discoverable = std::getenv("DISCOVERABLE_PUBLISHERS");
+  if (discoverable != NULL){
+    if (strcmp(discoverable, "1") == 0) {
+      addr = "*";
+    }
+  }
+
+  full_endpoint = get_zmq_protocol() + addr + ":";
   if (check_endpoint){
     full_endpoint += std::to_string(get_port(endpoint));
   } else {

@@ -8,6 +8,8 @@
 
 #define MAX_POLLERS 128
 
+extern std::map<std::string, std::string> ZMQ_PROTOCOLS;
+
 class ZMQContext : public Context {
 private:
   void * context = NULL;

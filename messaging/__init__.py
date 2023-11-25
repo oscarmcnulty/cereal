@@ -23,6 +23,16 @@ assert wait_for_one_event
 
 NO_TRAVERSAL_LIMIT = 2**64-1
 AVG_FREQ_HISTORY = 100
+SIMULATION = "SIMULATION" in os.environ
+IP_CAN_ADDR = os.environ.get("IP_CAN_ADDR", None)
+
+# sec_since_boot is faster, but allow to run standalone too
+try:
+  from common.realtime import sec_since_boot
+except ImportError:
+  import time
+  sec_since_boot = time.time
+  print("Warning, using python time.time() instead of faster sec_since_boot")
 
 context = Context()
 
@@ -62,6 +72,8 @@ def pub_sock(endpoint: str) -> PubSocket:
 def sub_sock(endpoint: str, poller: Optional[Poller] = None, addr: str = "127.0.0.1",
              conflate: bool = False, timeout: Optional[int] = None) -> SubSocket:
   sock = SubSocket()
+  if endpoint in ["can", "sendcan"] and IP_CAN_ADDR is not None:
+    addr = IP_CAN_ADDR
   sock.connect(context, endpoint, addr.encode('utf8'), conflate)
 
   if timeout is not None:
