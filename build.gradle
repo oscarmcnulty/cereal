@@ -19,6 +19,6 @@ sourceSets {
 
 dependencies {
     implementation 'org.capnproto:runtime:0.1.13'
-    implementation project(path: ':messaging')
-    implementation project(path: ':common')
+    //implementation project(path: ':messaging')
+    //implementation project(path: ':common')
 }

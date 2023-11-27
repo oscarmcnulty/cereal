@@ -5,8 +5,6 @@ import org.capnproto.*;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import static ai.flow.common.utils.*;
-
 public abstract class MessageBase {
 
     public enum AllocationStyle {
@@ -58,7 +56,7 @@ public abstract class MessageBase {
 
     public ByteBuffer serialize(boolean valid) {
         try {
-            event.setLogMonoTime((long)(nanoSinceBoot()));
+            event.setLogMonoTime((long)(System.nanoTime()));
             event.setValid(valid);
             stream.buf.rewind();
             Serialize.write(stream, messageBuilder);

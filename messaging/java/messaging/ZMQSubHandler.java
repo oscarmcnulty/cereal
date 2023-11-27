@@ -1,11 +1,16 @@
 package messaging;
 //zmq
+import ai.flow.definitions.Definitions;
 import org.zeromq.ZMQ;
 //java
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.io.IOException;
 import java.nio.ByteBuffer;
+
+import org.capnproto.MessageReader;
+import org.capnproto.Serialize;
 //logging
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,10 +72,21 @@ public class ZMQSubHandler{
         return socket.recv(); // actual data
     }
 
-    public void recvBuffer(String topic, ByteBuffer buffer){
+    public ByteBuffer recvBuffer(String topic){
         ZMQ.Socket socket = this.sockets.get(topic);
-        socket.recvByteBuffer(buffer, 0);
-        buffer.rewind();
+        return ByteBuffer.wrap(socket.recv());
+    }
+
+    public Definitions.Event.Reader recv(String topic){
+        try {
+            ByteBuffer buffer = recvBuffer(topic);
+            MessageReader messageReader = Serialize.read(buffer);
+            buffer.rewind();
+            return messageReader.getRoot(Definitions.Event.factory);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public boolean updated(String topic){
