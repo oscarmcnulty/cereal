@@ -42,7 +42,7 @@ public class ZMQSubHandler{
         int port;
         port = ZMQSubHandler.portMap.services.get(topic).port;
         socket = context.socket(ZMQ.SUB);
-        socket.setConflate(ZMQSubHandler.portMap.services.get(topic).keepLast);
+        socket.setConflate(true);
         socket.connect(Utils.getSocketPath(Integer.toString(port)));
         socket.subscribe("".getBytes());
         poller.register(socket, ZMQ.Poller.POLLIN);

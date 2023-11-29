@@ -30,6 +30,8 @@ env.SharedLibrary('cereal_shared', cereal_objects)
 
 services_h = env.Command(['services.h'], ['services.py'], 'python3 ' + cereal_dir.path + '/services.py > $TARGET')
 
+services_yaml = env.Command(['resources/services.yaml'], ['services_yaml.py', 'services.py'], 'python3 ' + cereal_dir.path + '/services_yaml.py > $TARGET')
+
 messaging_objects = env.SharedObject([
   'messaging/messaging.cc',
   'messaging/event.cc',
@@ -47,7 +49,6 @@ env.Program('messaging/bridge', ['messaging/bridge.cc'], LIBS=[messaging_lib, 'z
 Depends('messaging/bridge.cc', services_h)
 
 envCython.Program('messaging/messaging_pyx.so', 'messaging/messaging_pyx.pyx', LIBS=envCython["LIBS"]+[messaging_lib, "zmq", common])
-
 
 # Build Vision IPC
 vipc_sources = [

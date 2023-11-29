@@ -15,7 +15,7 @@ class Service:
     self.port = port
     self.should_log = should_log
     self.frequency = frequency
-    self.decimation = decimation
+    self.decimation = 1 if decimation is None else decimation
 
 
 services: dict[str, tuple] = {
@@ -63,6 +63,7 @@ services: dict[str, tuple] = {
   "carEvents": (True, 1., 1),
   "carParams": (True, 0.02, 1),
   "roadCameraState": (True, 20., 20),
+  "roadCameraBuffer": (True, 20., 20), # only for flowpilot
   "driverCameraState": (True, 20., 20),
   "driverEncodeIdx": (False, 20., 1),
   "driverStateV2": (True, 20., 10),

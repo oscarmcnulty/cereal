@@ -9,7 +9,8 @@ __pycache__
 *.a
 build
 bin
-.gradle
+.gradle'
+/resources/
 
 test_runner
 
