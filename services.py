@@ -73,6 +73,7 @@ services: dict[str, tuple] = {
   "wideRoadCameraBuffer": (False, 20., 20), # only for flowpilot
   "modelV2": (True, 20., 40),
   "modelRaw": (False, 20.), # only for flowpilot
+  "pulseDesire": (True, 20.), # only for flowpilot
   "managerState": (True, 2., 1),
   "uploaderState": (True, 0., 1),
   "navInstruction": (True, 1., 10),
