@@ -63,13 +63,14 @@ services: dict[str, tuple] = {
   "carEvents": (True, 1., 1),
   "carParams": (True, 0.02, 1),
   "roadCameraState": (True, 20., 20),
-  "roadCameraBuffer": (True, 20., 20), # only for flowpilot
+  "roadCameraBuffer": (False, 20., 20), # only for flowpilot
   "driverCameraState": (True, 20., 20),
   "driverEncodeIdx": (False, 20., 1),
   "driverStateV2": (True, 20., 10),
   "driverMonitoringState": (True, 20., 10),
   "wideRoadEncodeIdx": (False, 20., 1),
   "wideRoadCameraState": (True, 20., 20),
+  "wideRoadCameraBuffer": (False, 20., 20), # only for flowpilot
   "modelV2": (True, 20., 40),
   "managerState": (True, 2., 1),
   "uploaderState": (True, 0., 1),

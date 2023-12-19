@@ -37,7 +37,16 @@ struct FrameBuffer @0x81c2f05a394cf4af  {
   }
 }
 
-struct CustomReserved1 @0xaedffd8f31e7b55d {
+struct ModelRaw @0xaedffd8f31e7b55d {
+  frameId @0 :UInt32;
+  frameIdExtra @1 :UInt32;
+  frameAge @2 :UInt32;
+  frameDropPerc @3 :Float32;
+  timestampEof @4 :UInt64;
+  modelExecutionTime @5 :Float32;
+  valid @6 :Bool;
+
+  rawPredictions @7 :List(Float32);
 }
 
 struct CustomReserved2 @0xf35cc4560bbf6ec2 {

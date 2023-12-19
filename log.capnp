@@ -2293,7 +2293,7 @@ struct Event {
     roadCameraBuffer @107 :Custom.FrameBuffer;
     wideRoadCameraBuffer @108 :Custom.FrameBuffer;
     driverCameraBuffer @109 :Custom.FrameBuffer;
-    customReserved3 @110 :Custom.CustomReserved3;
+    modelRaw @110 :Custom.ModelRaw;
     customReserved4 @111 :Custom.CustomReserved4;
     customReserved5 @112 :Custom.CustomReserved5;
     customReserved6 @113 :Custom.CustomReserved6;

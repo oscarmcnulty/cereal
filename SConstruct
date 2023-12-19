@@ -12,6 +12,7 @@ common = ''
 
 cpppath = [
   f"#/../",
+  "#/../third_party/catch2/include",
   '/usr/lib/include',
   '/opt/homebrew/include',
   sysconfig.get_paths()['include'],
