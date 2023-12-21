@@ -26,14 +26,6 @@ AVG_FREQ_HISTORY = 100
 SIMULATION = "SIMULATION" in os.environ
 IP_CAN_ADDR = os.environ.get("IP_CAN_ADDR", None)
 
-# sec_since_boot is faster, but allow to run standalone too
-try:
-  from common.realtime import sec_since_boot
-except ImportError:
-  import time
-  sec_since_boot = time.time
-  print("Warning, using python time.time() instead of faster sec_since_boot")
-
 context = Context()
 
 
